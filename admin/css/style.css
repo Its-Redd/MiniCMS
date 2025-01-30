@@ -1,4 +1,9 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
 
 .page-wrapper {
     min-height: 100vh;
@@ -15,7 +20,7 @@
 .page-content {
     flex: 1;
     background-color: #eee;
-    padding: 10px;
+    padding: 50px;
 }
 
 .admin-menu ul {
@@ -32,6 +37,8 @@
     display: block;
     padding: 10px 20px;
 }
+
+
 
 table {
     width: 100%;
@@ -55,4 +62,31 @@ th {
 tr:nth-chlid(even) {
     background-color: #eee;
 }
+
+.page-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.page-title-sub {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 40px 0 0 0;
+}
+
+.action-btn {
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+    background-color: green;
+    color: #fff;
+}
+
+.btn-group {
+    margin: 0 0 10px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
 
