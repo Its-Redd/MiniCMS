@@ -13,16 +13,9 @@
 </head>
 <body>
     <div class="page-wrapper">
-        <header class="page-header"><nav class="admin-menu">
-    <ul>
-        <li><a href="../index.php">Goto homepage</a></li>
-        <li><a href="index.php">Dashboard</a></li>
-        <li><a href="posts.php">Posts</a></li>
-        <li><a href="users.php">Users</a></li>
-        <li><a href="../includes/logout.php">Logout</a></li>
-    </ul>
-</nav>
-</header>
+        <header class="page-header">
+            <?php include "includes/admin_menu.php"; ?>
+        </header>
         <main class="page-content">
             <h1 class="page-title">Mini CMS | Dashboard</h1>
             <p>In this section you can create, edit and delete users</p>
@@ -76,7 +69,7 @@
 
 
             <h2 class="page-title-sub">Latest Users</h2>
-            <div class="btn-group"><a href="post-create.php" class="action-btn">Create User</a></div>
+            <div class="btn-group"><a href="user-create.php" class="action-btn">Create User</a></div>
 
 
             <?php
