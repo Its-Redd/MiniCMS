@@ -19,7 +19,11 @@
             $sql = "INSERT INTO users (Firstname, Lastname,
             Username, Password, Created) VALUES ('$user_firstname', '$user_lastname', '$user_username', '$user_password', NOW())";
 
-            $conn->query($sql);
+            if($conn->query($sql) === TRUE){
+                echo "User created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         } else {
             echo "All fields are required";
 
@@ -50,7 +54,6 @@
             <?php include "includes/admin_menu.php"; ?>
         </header>
         <main class="page-content">
-            <div class="inner-wrapper-narrow">
             <h1 class="page-title">Mini CMS | Create User</h1>
             <p>In this section you can create users</p>
             
@@ -87,7 +90,6 @@
                 </div>
                 <button type="submit" name="submit">Create user</button>
             </form>
-            </div>
 
             
         </main>
