@@ -1,43 +1,64 @@
 <?php
 
+    session_start();
   require_once "includes/connection.php";
 
-?>
 
-<?php
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
 
-    if(isset($_GET['user_id'])){
-        $user_id = $_GET['user_id'];
+    if(isset($_GET['Id'])){
+        $user_id = $_GET['Id'];
+        $_SESSION['user_id'] = $user_id;
+        $result = FindUser($conn, $user_id);
+        $row = $result->fetch_object();
+    }
+    else{
+        $user_id = $_SESSION['user_id'];
+        $result = FindUser($conn, $user_id);
+        $row = $result->fetch_object(); 
+    }
+    // else{
+    //     header("Location: users.php");
+    //     die();
+    // }
 
+    function FindUser($conn, $user_id) : object {
         $sql = "SELECT * FROM users WHERE Id = $user_id";
-        $result = $conn->query($sql);
 
-        if($result->num_rows > 0){
-            $row = $result->fetch_object();
-        }
-
+        
+        return $result = $conn->query($sql);
     }
 
     if(isset($_POST['submit'])){
-
+        
         $user_firstname = $_POST['user_firstname'];
         $user_lastname  = $_POST['user_lastname'];
         $user_username  = $_POST['user_username'];
         $user_password  = $_POST['user_password'];
     
         $sql = "UPDATE users SET
-            User_firstname = '{$user_firstname}',
-            User_lastname  = '{$user_lastname}',
-            user_username  = '{$user_username}',
-            user_password  = '{$user_password}'
+            Firstname = '{$user_firstname}',
+            Lastname  = '{$user_lastname}',
+            Username  = '{$user_username}',
+            Password  = '{$user_password}'
             WHERE id = '{$user_id}'";
     
         $result = $conn->query($sql);
+
+        $updated = FindUser($conn, $user_id);
+        $row = $updated ->fetch_object();
+        $status = "";
+        if(isset($result)){
+            $status = "User was updated successfully";
+        } else {
+            $status = "An error occured, user was not updated"; 
+        }
     }
+
+
     
 
 ?>
@@ -60,40 +81,59 @@
             <h1 class="page-title">Mini CMS | Update User</h1>
             <p>Submit form to update user</p>
             
-            <form action="user-create.php" method="post">
+            <form action="user-update.php" method="post">
             <div class="form-item">
                 <label for="user-firstname" class="label">First name:</label>
                 <div class="field">
-                    <input name="user_firstname" type="text" id="user-firstname" value="" autofocus required>
+                    <input name="user_firstname" type="text" id="user-firstname" value="<?php
+                    
+                      echo trim($row->Firstname);
+                    
+                    ?>" autofocus required>
                 </div>
                 </div>
                 <div class="form-item">
                 <label for="user-lastname" class="label">Last name:</label>
                 <div class="field">
-                    <input name="user_lastname" type="text" id="user-lastname" value="" required>
-                </div>
-                </div>
-                <div class="form-item">
-                <label for="user-email" class="label">Email:</label>
-                <div class="field">
-                    <input name="user_email" type="text" id="user-email" value="" required>
+                    <input name="user_lastname" type="text" id="user-lastname" value="<?php
+                    
+                        echo trim($row->Lastname);
+                    
+                    ?>" required>
                 </div>
                 </div>
                 <div class="form-item">
                 <label for="user-username" class="label">Username:</label>
                 <div class="field">
-                    <input name="user_username" type="text" id="user-username" value="" required>
+                    <input name="user_username" type="text" id="user-username" value="<?php
+                    
+                      echo trim($row->Username);
+                    
+                    ?>" required>
                 </div>
                 </div>
                 <div class="form-item">
                 <label for="user-password" class="label">Password:</label>
                 <div class="field">
-                    <input name="user_password" type="text" id="user-password" value="" required>
+                    <input name="user_password" type="text" id="user-password" value="<?php
+                    
+                      echo trim($row->Password);
+
+                      ?>" required>
                 </div>
                 </div>
-                <button type="submit" name="submit">Create user</button>
+                <button type="submit" name="submit">Update user</button>
             </form>
+            <h2>
+                <?php
+                
+                  echo $status;
+                
+                ?>
+            </h2>
             </div>
+
+
 
             
         </main>

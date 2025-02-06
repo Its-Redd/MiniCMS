@@ -95,8 +95,8 @@
                         echo "<td>" . htmlspecialchars($row->Lastname) . "</td>";
                         echo "<td>" . htmlspecialchars($row->Username) . "</td>";
                         echo "<td>" . htmlspecialchars($row->Created) . "</td>";
-                        echo "<td><a href='user-update.php?user_id=" . urlencode($row->Id) . "'>Edit</a></td>";
-                        echo "<td><a href='user-delete.php?user_id=" . urlencode($row->Id) . "'>Delete</a></td>";
+                        echo "<td><a href='user-update.php?Id=" . urlencode($row->Id) . "'>Edit</a></td>";
+                        echo "<td><a href='user-delete.php?Id=" . urlencode($row->Id) . "'>Delete</a></td>";
                         echo "</tr>";
                     }
                 } else {

@@ -46,12 +46,12 @@
                 if ($result) { // Ensure the query was successful
                     while ($row = $result->fetch_object()) {
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row->Firstname) . "</td>";
-                        echo "<td>" . htmlspecialchars($row->Lastname) . "</td>";
-                        echo "<td>" . htmlspecialchars($row->Username) . "</td>";
-                        echo "<td>" . htmlspecialchars($row->Created) . "</td>";
-                        echo "<td><a href='user-update.php?user_id=" . urlencode($row->Id) . "'>Edit</a></td>";
-                        echo "<td><a href='user-delete.php?user_id=" . urlencode($row->Id) . "'>Delete</a></td>";
+                        echo "<td>" . htmlspecialchars(trim($row->Firstname)) . "</td>";
+                        echo "<td>" . htmlspecialchars(trim($row->Lastname)) . "</td>";
+                        echo "<td>" . htmlspecialchars(trim($row->Username)) . "</td>";
+                        echo "<td>" . htmlspecialchars(trim($row->Created)) . "</td>";
+                        echo "<td><a href='user-update.php?Id=" . urlencode($row->Id) . "'>Edit</a></td>";
+                        echo "<td><a href='user-delete.php?Id=" . urlencode($row->Id) . "'>Delete</a></td>";
                         echo "</tr>";
                     }
                 } else {
