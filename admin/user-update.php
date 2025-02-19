@@ -8,7 +8,6 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-
     if(isset($_GET['Id'])){
         $user_id = $_GET['Id'];
         $_SESSION['user_id'] = $user_id;
@@ -25,12 +24,14 @@
     //     die();
     // }
 
-    function FindUser($conn, $user_id) : object {
-        $sql = "SELECT * FROM users WHERE Id = $user_id";
+    // function FindUser($conn, $user_id) : object {
+    //     $sql = "SELECT * FROM users WHERE Id = $user_id";
 
         
-        return $result = $conn->query($sql);
-    }
+    //     return $result = $conn->query($sql);
+    // }
+
+    $status = "";
 
     if(isset($_POST['submit'])){
         
@@ -50,7 +51,7 @@
 
         $updated = FindUser($conn, $user_id);
         $row = $updated ->fetch_object();
-        $status = "";
+        
         if(isset($result)){
             $status = "User was updated successfully";
         } else {

@@ -12,4 +12,16 @@
 
     // echo"Connected successfully";
 
+
+
+
+
+
+    function FindUser($conn, $user_id) : object {
+      $sql = "SELECT * FROM users WHERE Id = $user_id";
+
+      
+      return $result = $conn->query($sql);
+  }
+
 ?>
