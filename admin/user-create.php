@@ -9,6 +9,8 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
+    $status = "";
+
     if(isset($_POST['submit'])){
         if(!empty($_POST['user_firstname']) || !empty($_POST['user_astname']) || !empty($_POST['user_username']) || !empty($_POST['user_password'])){
             $user_firstname = $_POST['user_firstname'];
@@ -20,9 +22,9 @@
             Username, Password, Created) VALUES ('$user_firstname', '$user_lastname', '$user_username', '$user_password', NOW())";
 
             if($conn->query($sql) === TRUE){
-                echo "User created successfully";
+                $status = "<p>User was created successfully</p>";
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                $status = "<p>An error occured, user was not created</p>";
             }
         } else {
             echo "All fields are required";
@@ -91,7 +93,11 @@
                 <button type="submit" name="submit">Create user</button>
             </form>
 
+            <?php
             
+              echo $status
+            
+            ?>
         </main>
     </div>
 </body>
