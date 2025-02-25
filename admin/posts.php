@@ -1,14 +1,16 @@
 <?php
+require_once "includes/connection.php";
 
-  require_once "includes/connection.php";
-
+if(!isset($_SESSION['user_id'])){
+    header('Location: ../login.php');
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Posts</title>
     <link rel="stylesheet" href="/admin/css/style.css">
 </head>
 <body>
@@ -17,56 +19,49 @@
             <?php include "includes/admin_menu.php"; ?>
         </header>
         <main class="page-content">
-            <h1 class="page-title">Mini CMS | Users</h1>
-            <p>In this section you can create, edit and delete users</p>
+            <h1 class="page-title">Mini CMS | Posts</h1>
+            <p>In this section, you can create, edit, and delete posts.</p>
 
-
-
-
-            <h2 class="page-title-sub">Latest Users</h2>
-            <div class="btn-group"><a href="user-create.php" class="action-btn">Create User</a></div>
-
+            <h2 class="page-title-sub">Latest Posts</h2>
+            <div class="btn-group">
+                <a href="post-create.php" class="action-btn">Create Post</a>
+            </div>
 
             <?php
-                // CREATE TABLE HEADER AS STATIC HTML
+                // Display Posts Table
                 echo "<table class='admin-table'>";
                 echo "<thead>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Username</th>
-                        <th>Created</th>
-                        <th>Rediger</th>
-                        <th>Slet</th>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Published</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
                     </thead>";
                 echo "<tbody>";
 
-                $sql = "SELECT * FROM users ORDER BY Created DESC";
-                $result = $conn->query($sql); // Correct variable name
-                
-                if ($result) { // Ensure the query was successful
+                // Fetch all posts from the database
+                $sql = "SELECT * FROM posts ORDER BY post_published DESC";
+                $result = $conn->query($sql);
+
+                if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_object()) {
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars(trim($row->Firstname)) . "</td>";
-                        echo "<td>" . htmlspecialchars(trim($row->Lastname)) . "</td>";
-                        echo "<td>" . htmlspecialchars(trim($row->Username)) . "</td>";
-                        echo "<td>" . htmlspecialchars(trim($row->Created)) . "</td>";
-                        echo "<td><a href='user-update.php?Id=" . urlencode($row->Id) . "'>Edit</a></td>";
-                        echo "<td><a href='user-delete.php?Id=" . urlencode($row->Id) . "'>Delete</a></td>";
+                        echo "<td>" . htmlspecialchars($row->post_title) . "</td>";
+                        echo "<td>" . htmlspecialchars($row->post_author) . "</td>";
+                        echo "<td>" . htmlspecialchars($row->post_published) . "</td>";
+                        echo "<td><a href='post-update.php?Id=" . urlencode($row->Id) . "' class='edit-btn'>Edit</a></td>";
+                        echo "<td><a href='post-delete.php?Id=" . urlencode($row->Id) . "' class='delete-btn'>Delete</a></td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='6'>No results found</td></tr>";
+                    echo "<tr><td colspan='6'>No posts found</td></tr>";
                 }
-                
+
                 echo "</tbody>";
                 echo "</table>";
-                
-
-
-                
             ?>
-
-            
         </main>
     </div>
 </body>

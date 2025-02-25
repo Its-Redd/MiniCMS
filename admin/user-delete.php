@@ -1,5 +1,9 @@
 <?php
 
+if(!isset($_SESSION['user_id'])){
+    header('Location: ../login.php');
+ }
+
 if(isset($_GET['Id'])) {
     $user_id = $_GET['Id'];
 }
