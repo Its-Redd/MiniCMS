@@ -5,8 +5,8 @@ if(!isset($_SESSION['user_id'])){
     header('Location: ../login.php');
  }
 
-if(isset($_GET['Id'])) {
-    $post_id = $_GET['Id'];
+if(isset($_GET['post_id'])) {
+    $post_id = $_GET['post_id'];
 }
 
 ?>
@@ -27,7 +27,7 @@ if(isset($_GET['Id'])) {
         <main class="page-content">
             <h1 class="page-title">Mini CMS | Delete Post</h1>
             <?php if(isset($confirm)){echo $confirm;}?>
-            <a href="includes/post_delete.php?Id=<?php echo $post_id; ?>&confirm=true">Confirm</a> | 
+            <a href="includes/post_delete.php?post_id=<?php echo $post_id; ?>&confirm=true">Confirm</a> | 
             <a href="users.php">Cancel</a>
 
         </main>
