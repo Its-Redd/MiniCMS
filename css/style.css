@@ -219,8 +219,9 @@ input[type="submit"]:hover {
 }
 
 .page-post .post {
-  margin-top: -100px;
   width: 100%;
+  height: fit-content;
+  margin-top: -40px;
 }
 .page-post .post .post-title {
   font-size: 54px;
@@ -230,6 +231,7 @@ input[type="submit"]:hover {
   text-align: center;
   font-weight: bold;
   font-size: 16px;
+  margin-bottom: 50px;
 }
 .page-post .post-content {
   margin-top: 30px;

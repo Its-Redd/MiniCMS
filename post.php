@@ -43,6 +43,7 @@ if (isset($_GET['post_id'])) {
             </nav>
         </header>
         <div class="page-content-wrapper">
+            <div class="page-hero" style="background-image: url('./img/<?php echo trim($post->post_image) ?>');"></div>
             <div class="inner-wrapper">
                 <main class="page-content">
                     <article class="post">

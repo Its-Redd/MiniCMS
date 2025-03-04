@@ -29,7 +29,11 @@ require_once "./admin/includes/connection.php";
                 </ul>
             </nav>
         </header>
+
         <div class="page-content-wrapper">
+            <section class="page-hero">
+                <h1 class="page-hero-title">Mini CMS</h1>
+            </section>
             <div class="inner-wrapper">
                 <h1 class="page-title">Latest Posts</h1>
                 <div class="posts">
