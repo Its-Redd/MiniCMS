@@ -22,6 +22,7 @@ if (isset($_POST['submit'])) {
 
         // Verify hashed password
         if (password_verify($password, $aut_user['Password'])) {
+
             $_SESSION['user_id'] = $aut_user['Id'];
             $_SESSION['username'] = $aut_user['Username'];
 
