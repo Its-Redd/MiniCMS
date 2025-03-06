@@ -3,18 +3,19 @@ session_start();
 
 require_once "admin/includes/connection.php";
 
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 ini_set('log_errors', 1);
 
 if (isset($_POST['submit'])) {
-    $username =  $_POST['username'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
-
-    $query = "SELECT Id, Username, Password FROM users WHERE Username = '$username'";
-    $result = mysqli_query($conn, $query);
+    $query = "SELECT Id, Username, Password FROM users WHERE Username = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     if ($result && mysqli_num_rows($result) == 1) {
         $aut_user = mysqli_fetch_assoc($result);
@@ -33,6 +34,8 @@ if (isset($_POST['submit'])) {
     } else {
         $error_message = "Incorrect username or password. Please try again!";
     }
+
+    mysqli_stmt_close($stmt);
 }
 
 ?>
