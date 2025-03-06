@@ -4,10 +4,24 @@ session_start();
 require_once "admin/includes/connection.php";
 
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-ini_set('log_errors', 1);
 
+/**
+ * Handles the login process when the form is submitted.
+ *
+ * This script checks if the login form has been submitted. If so, it retrieves the username and password
+ * from the POST request and queries the database to find a matching user. If a match is found, the user's
+ * session is initialized and the user is redirected to the admin index page. If no match is found, an error
+ * message is set. If an error occurs during the query, an error message is displayed.
+ *
+ * @global object $conn The database connection object.
+ * @global array $_SESSION The session array to store user information.
+ *
+ * @param string $_POST["submit"] The submit button value to check if the form is submitted.
+ * @param string $_POST["username"] The username entered by the user.
+ * @param string $_POST["password"] The password entered by the user.
+ *
+ * @return void
+ */
 if (isset($_POST["submit"])) {
     // ob_start(); // Start output buffering
     $username = $_POST["username"];
@@ -26,8 +40,9 @@ if (isset($_POST["submit"])) {
         exit();
     } elseif ($result->num_rows == 0) {
         $error = "Det indtastede brugernavn eller adgangskode er forkert";
+    } else {
+        echo "Der er sket en fejl";
     }
-    else {echo "Der er sket en fejl";}
 }
 ?>
 
@@ -47,22 +62,22 @@ if (isset($_POST["submit"])) {
     </header>
 
     <main>
-    <div class="login-wrapper">
-        <h1>Login</h1>
-        <form action="login.php" method="POST">
-            <label for="username">Username T</label>
-            <input type="text" name="username" id="username" required>
-            
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" required>
-            
-            <input type="submit" name="submit" value="Login">
+        <div class="login-wrapper">
+            <h1>Login</h1>
+            <form action="login.php" method="POST">
+                <label for="username">Username T</label>
+                <input type="text" name="username" id="username" required>
 
-            <?php if (isset($error) && $error != ""): ?>
-                <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
-            <?php endif; ?>
-        </form>
-    </div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+
+                <input type="submit" name="submit" value="Login">
+
+                <?php if (isset($error) && $error != ""): ?>
+                    <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
+                <?php endif; ?>
+            </form>
+        </div>
     </main>
 
 </body>
