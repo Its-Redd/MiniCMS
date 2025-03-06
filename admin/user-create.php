@@ -3,12 +3,40 @@ session_start();
 
 require_once "includes/connection.php";
 
+/**
+ * Redirects the user to the login page if they are not logged in.
+ *
+ * This script checks if the 'user_id' is set in the session. If it is not set,
+ * it means the user is not logged in, and they are redirected to the login page.
+ *
+ * @file /C:/Repo/MiniCMS/admin/user-create.php
+ */
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
 }
 ?>
 
 <?php
+
+$status = "";
+/**
+ * Handles the user creation process.
+ *
+ * This script checks if the form has been submitted and if all required fields are filled.
+ * If the fields are filled, it retrieves the user information from the POST request and
+ * inserts a new user record into the 'users' table in the database.
+ *
+ * @param string $_POST['submit'] The form submission indicator.
+ * @param string $_POST['user_firstname'] The first name of the user.
+ * @param string $_POST['user_lastname'] The last name of the user.
+ * @param string $_POST['user_username'] The username of the user.
+ * @param string $_POST['user_password'] The password of the user.
+ *
+ * @global object $conn The database connection object.
+ *
+ * @return void Outputs a status message indicating success or failure.
+ */
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -18,6 +46,19 @@ $status = "";
 if (isset($_POST['submit'])) {
     if (!empty($_POST['user_firstname']) || !empty($_POST['user_astname']) || !empty($_POST['user_username']) || !empty($_POST['user_password'])) {
         $user_firstname = $_POST['user_firstname'];
+
+        $user_lastname = $_POST['user_lastname'];
+        $user_username = $_POST['user_username'];
+        $user_password = $_POST['user_password'];
+
+        $sql = "INSERT INTO users (Firstname, Lastname,
+            Username, Password, Created) VALUES ('$user_firstname', '$user_lastname', '$user_username', '$user_password', NOW())";
+
+        if ($conn->query($sql) === TRUE) {
+            $status = "<p>User was created successfully</p>";
+        } else {
+            $status = "<p>An error occured, user was not created</p>";
+
         $user_lastname  = $_POST['user_lastname'];
         $user_username  = $_POST['user_username'];
         $user_password  = $_POST['user_password'];
@@ -44,6 +85,7 @@ if (isset($_POST['submit'])) {
             $status =  "The user was successfully created.";
         } else {
             $status = "there was an error.Please try again.";
+
         }
     } else {
         echo "All fields are required";
