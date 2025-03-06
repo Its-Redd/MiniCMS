@@ -75,8 +75,6 @@ if (isset($_POST['submit'])) {
     } else {
         $error_message = "Incorrect username or password. Please try again!";
     }
-
- 
 }
 
 ?>
@@ -118,10 +116,10 @@ if (isset($_POST['submit'])) {
 
                 <?php if (isset($error_message) && $error_message != ""): ?>
                     <p class="error-message"><?php echo htmlspecialchars($error_message); ?></p>
-
                 <?php endif; ?>
-            </form>
-        </div>
+                <?php if (isset($error_message) && $error_message != ""): ?>
+                    <p class="error-message"><?php echo htmlspecialchars($error_message); ?></p>
+                <?php endif; ?>
     </main>
 
 </body>
