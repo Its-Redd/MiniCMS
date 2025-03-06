@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
       Username     = '{$user_username}'
       WHERE Id          = '{$user_id}'";
 
-    $result = $con->query($sql);
+    $result = $conn->query($sql);
 
     if (isset($result)) {
         $status = "The user has been successfully updated.";

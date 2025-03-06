@@ -21,7 +21,6 @@ if (isset($_POST['submit'])) {
         $user_lastname  = $_POST['user_lastname'];
         $user_username  = $_POST['user_username'];
         $user_password  = $_POST['user_password'];
-        $user_created   = $_POST['user_created'];
 
         // Encrypt password
         $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
@@ -36,10 +35,10 @@ if (isset($_POST['submit'])) {
       '{$user_firstname}', 
       '{$user_lastname}', 
       '{$user_username}', 
-      '{$hashed_password}', // insert encrypted password ($hashed_password)
+      '{$hashed_password}',
        NOW())";
 
-        $result = $con->query($sql);
+        $result = $conn->query($sql);
 
         if (isset($result)) {
             $status =  "The user was successfully created.";
