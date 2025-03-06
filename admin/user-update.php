@@ -9,9 +9,11 @@ require_once "includes/connection.php";
  * This check ensures that only authenticated users can access the user update page.
  * If the 'user_id' is not set in the session, the user is redirected to the login page.
  */
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
 }
+
 
 
 
@@ -28,6 +30,11 @@ if (!isset($_SESSION['user_id'])) {
  * @param int $user_id The ID of the user to be updated.
  * @return void
  */
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if (isset($_GET['Id'])) {
     $user_id = $_GET['Id'];
     $_SESSION['user_id'] = $user_id;
@@ -38,6 +45,7 @@ if (isset($_GET['Id'])) {
     $result = FindUser($conn, $user_id);
     $row = $result->fetch_object();
 }
+
 
 $status = "";
 
@@ -87,6 +95,44 @@ if (isset($_POST['submit'])) {
 }
 
 
+// else{
+//     header("Location: users.php");
+//     die();
+// }
+
+// function FindUser($conn, $user_id) : object {
+//     $sql = "SELECT * FROM users WHERE Id = $user_id";
+
+
+//     return $result = $conn->query($sql);
+// }
+
+$status = "";
+
+if (isset($_POST['submit'])) {
+
+    $user_firstname = $_POST['user_firstname'];
+    $user_lastname = $_POST['user_lastname'];
+    $user_username = $_POST['user_username'];
+
+    $sql = "UPDATE users SET 
+      Firstname    = '{$user_firstname}', 
+      Lastname     = '{$user_lastname}', 
+      Username     = '{$user_username}'
+      WHERE Id          = '{$user_id}'";
+
+    $result = $conn->query($sql);
+
+    if (isset($result)) {
+        $status = "The user has been successfully updated.";
+    } else {
+        $status = "Something went wrong.Please try again!";
+    }
+}
+
+
+
+
 
 
 ?>
@@ -119,7 +165,11 @@ if (isset($_POST['submit'])) {
 
                                                                                                 echo trim($row->Firstname);
 
+
                                                                                                 ?>" autofocus required>
+
+                                                                                                ?>" autofocus>
+
                         </div>
                     </div>
                     <div class="form-item">
@@ -129,7 +179,11 @@ if (isset($_POST['submit'])) {
 
                                                                                                 echo trim($row->Lastname);
 
+
                                                                                                 ?>" required>
+
+                                                                                                ?>">
+
                         </div>
                     </div>
                     <div class="form-item">
@@ -138,6 +192,7 @@ if (isset($_POST['submit'])) {
                             <input name="user_username" type="text" id="user-username" value="<?php
 
                                                                                                 echo trim($row->Username);
+
 
                                                                                                 ?>" required>
                         </div>
@@ -150,6 +205,9 @@ if (isset($_POST['submit'])) {
                                                                                                 echo trim($row->Password);
 
                                                                                                 ?>" required>
+
+                                                                                                ?>">
+
                         </div>
                     </div>
                     <button type="submit" name="submit">Update user</button>

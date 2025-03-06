@@ -11,6 +11,7 @@ require_once "includes/connection.php";
  *
  * @file /C:/Repo/MiniCMS/admin/user-create.php
  */
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
 }
@@ -36,10 +37,16 @@ $status = "";
  *
  * @return void Outputs a status message indicating success or failure.
  */
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$status = "";
 
 if (isset($_POST['submit'])) {
     if (!empty($_POST['user_firstname']) || !empty($_POST['user_astname']) || !empty($_POST['user_username']) || !empty($_POST['user_password'])) {
         $user_firstname = $_POST['user_firstname'];
+
         $user_lastname = $_POST['user_lastname'];
         $user_username = $_POST['user_username'];
         $user_password = $_POST['user_password'];
@@ -51,6 +58,34 @@ if (isset($_POST['submit'])) {
             $status = "<p>User was created successfully</p>";
         } else {
             $status = "<p>An error occured, user was not created</p>";
+
+        $user_lastname  = $_POST['user_lastname'];
+        $user_username  = $_POST['user_username'];
+        $user_password  = $_POST['user_password'];
+
+        // Encrypt password
+        $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users (
+      Firstname, 
+      Lastname, 
+      Username, 
+      Password, 
+      Created
+   ) VALUES (
+      '{$user_firstname}', 
+      '{$user_lastname}', 
+      '{$user_username}', 
+      '{$hashed_password}',
+       NOW())";
+
+        $result = $conn->query($sql);
+
+        if (isset($result)) {
+            $status =  "The user was successfully created.";
+        } else {
+            $status = "there was an error.Please try again.";
+
         }
     } else {
         echo "All fields are required";
