@@ -91,16 +91,20 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <header>
-
+    <header class="page-header">
+        <nav class="main-menu">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="posts.php">Posts</a></li>
+                <li><a href="login.php">Log in</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
         <div class="login-wrapper">
             <h1>Login</h1>
             <form action="login.php" method="POST">
-
-                <label for="username">Username T</label>
 
                 <label for="username">Username</label>
 
