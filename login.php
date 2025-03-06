@@ -39,10 +39,11 @@ if (isset($_POST["submit"])) {
         echo "It worked";
         exit();
     } elseif ($result->num_rows == 0) {
-        $error = "Det indtastede brugernavn eller adgangskode er forkert";
+        $error_message = "Det indtastede brugernavn eller adgangskode er forkert";
     } else {
         echo "Der er sket en fejl";
     }
+}
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -111,15 +112,11 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="submit" value="Login">
 
 
-                <?php if (isset($error) && $error != ""): ?>
-                    <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
-
                 <?php if (isset($error_message) && $error_message != ""): ?>
                     <p class="error-message"><?php echo htmlspecialchars($error_message); ?></p>
                 <?php endif; ?>
-                <?php if (isset($error_message) && $error_message != ""): ?>
-                    <p class="error-message"><?php echo htmlspecialchars($error_message); ?></p>
-                <?php endif; ?>
+            </form>
+        </div>
     </main>
 
 </body>

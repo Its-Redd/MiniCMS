@@ -84,7 +84,6 @@ if (isset($_POST['submit'])) {
         echo "All fields are required";
     }
 }
-}
 
 ?>
 
