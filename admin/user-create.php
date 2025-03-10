@@ -47,18 +47,6 @@ if (isset($_POST['submit'])) {
     if (!empty($_POST['user_firstname']) || !empty($_POST['user_astname']) || !empty($_POST['user_username']) || !empty($_POST['user_password'])) {
         $user_firstname = $_POST['user_firstname'];
 
-        $user_lastname = $_POST['user_lastname'];
-        $user_username = $_POST['user_username'];
-        $user_password = $_POST['user_password'];
-
-        $sql = "INSERT INTO users (Firstname, Lastname,
-            Username, Password, Created) VALUES ('$user_firstname', '$user_lastname', '$user_username', '$user_password', NOW())";
-
-        if ($conn->query($sql) === TRUE) {
-            $status = "<p>User was created successfully</p>";
-        } else {
-            $status = "<p>An error occurred, user was not created</p>";
-        }
         // Encrypt password
         $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
 
